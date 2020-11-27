@@ -1,0 +1,109 @@
+Rules
+
+This is my own summarised translation of the rules as printed in JdlG [tk].  A fuller translation of that portion of the book was made by a collaborator and frequent translator of Debord's works. [http://www.classwargames.net/wp-content/uploads/2015/10/THE-RULES-OF-THE-GAME-OF-WAR1.pdf tk from https://www.classwargames.net/?p=1636 ]
+
+1. North and South armies start on the top 10 (K to T) and bottom 10 (A to J) rows respectively
+
+Non-moving features on each side:
+
+2. Mountains.  9 squares
+    impassable to troops
+    impassable to weapons
+    impassable to communications
+3. Mountain-pass.  1 square
+4. Arsenal.  2 squares
+5. Fortress.  3 squares
+
+6. All squares can be occupied by any moving piece, except where there are mountains.
+
+7. At the start of the game each side places its troops freely on its own side of the board, without knowledge of the other side's placement.
+
+8. First move is by coin-toss.  After, turns alternate.
+
+9. A turn consists of moving up to 5 pieces, and ends with an optional attack.
+
+10. Win conditions.  Any of:
+    a) all opposing troops destroyed
+    b) both opposing arsenals destroyed
+        an arsenal is destroyed once its square is occupied by an opposing fighting piece at the end of that opposing player's turn (this is checked _after_ any attack is carried out)
+    c) opponent surrenders
+
+11. Draw condition: mutual agreement of the players.
+    
+
+Fighting pieces (per side at start):
+
+12. Infantry (9)
+    Movement: 1
+    Weapons Range: 2
+    Attack: 4
+    Defence: 6
+        in Mountain-pass: 8
+        in Fortress: 10
+13. Cavalry (4)
+    Movement: 2
+    Weapons Range: 2
+        charging attack range: 4
+    Attack (not-charging): 4
+        charging (adjacent to attacked square, or directly in line with other charging cavalry and attacked square): 7
+        * cannot charge against a piece in a Mountain-pass or Fortress
+        * cannot charge from inside a Fortress
+    Defence: 5
+14. Artillery (1)
+    Movement: 1
+    Weapons Range: 3
+    Attack: 5
+    Defence: 8
+        in Mountain-pass: 10
+        in Fortress: 12
+15. Artillery-mounted (1)
+    Movement: 2
+    Weapons Range: 3
+    Attack: 5
+    Defence: 8
+        in Mountain-pass: 10
+        in Fortress: 12
+        
+16. All co-efficients (Movement, Attack, Defence) are 0 for any fighting piece which is not in communication.
+    
+17. Movement is to any of the 8 adjacent squares.  For pieces which can move more than one square per turn, changes of direction are allowed.  Movement can only be into/through unoccupied squares.
+
+18. Range is strictly in a straight line, horizontal, vertical, or diagonal.
+
+19. To determine the result of an attack:
+    1) add up the Attack co-efficients of all pieces from the attacking side which are directly in line with, and whose range encompasses the attacked square.
+    2) add up the Defence co-efficients of all pieces from the defending side which are directly in line with, and whose range encompasses the attacked square (including the piece on the attacked square).
+    3)
+    if AttackSum <= DefenceSum
+        nothing happens
+    if AttackSum >= DefenceSum + 2
+        defending piece on the attacked square is destroyed, removed from play 
+    if AttackSum = DefenceSum + 1
+        if there are no unoccupied squares adjacent to the defending piece 
+            defending piece on the attacked square is destroyed, removed from play
+        else
+            defending army must use the _first_ of its 5 moves to move the attacked piece (retreat)
+            the attacked piece has an Attack value of 0 for the turn of its retreat
+
+
+Communication:
+
+20. Arsenals transmit communication in straight lines horizontally, vertically, and diagonally
+
+21. Communication lines are broken by Mountain squares and by enemy pieces.
+
+Transmission pieces (per side at start):
+22. Transmission-foot (1):
+    Movement: 1
+    Range: 2
+    Attack: 0
+    Defence: 1
+23. Transmission-mounted (1):
+    Movement: 2
+    Range: 2
+    Attack: 0
+    Defence: 1
+    
+24. If a transmission piece is in communication, it repeats communication in a straight line in all directions.
+
+25. If a fighting piece is in communication, it repeats communication to all 8 immediately adjacent squares.

@@ -1,0 +1,354 @@
+Communication test 1:
+loc/piece   expected    case
+North:
+40:Am       false       doesn't loop horizontal
+75:A        true        transmit far down-left
+125:I       true        transmit far up-left
+169:I       ** no need to test inComms, just to enable another position
+202:T       ** no need to test inComms, just to enable another position
+245:C       true        MountainPass doesn't block
+274:C       false       doesn't loop diagonal
+330:C       true        transmit far down
+391:I       true        transmit near down
+392:I       true        transmit near down-left
+411:I       true        transmit near down-right
+414:I       true        transmit far down-right
+460:C       true        transmit far right
+494:Tm      true        Fortress doesn't block
+
+South:
+25:Am       true        transmit far left
+30:I        true        transmit near up-left
+31:C        true        transmit near up
+32:I        ** no need to test inComms, just to enable another position
+50:C        true        transmit near left
+54:I        true        transmit near up-right
+71:I        true        transmit far up
+76:I        true        near doesn't do far
+82:I        false       doesn't loop vertical, near doesn't do far
+92:I        true        transmit near right
+130:T       true        transmit far up-right
+211:A       false       blocked by pieces inComms and not
+466:Tm      false       Mountain blocks
+467:I       false       Tm doesn't transmit when out of comms
+
+
+********
+
+For testing Fighter getters (except defensive modifiers):
+(use same Communication Test 1 board)
+
+Piece   inComms     loc.
+I       true        30
+I       false       82
+C       true        245
+C       false       274
+A       true        75
+A       false       211
+Am      true        25
+Am      false       40
+T       true        130
+T       false       202
+Tm      true        494
+Tm      false       466
+
+******
+
+Defence getter test for terrain modifiers:
+North
+Piece   loc.    expect
+Arsenal 185
+Arsenal 334
+Am      187     d = 12
+I       225     d = 8
+A       285     d = 12
+T       454     d = 1
+South
+Piece   loc.    expect
+Arsenal 64
+Arsenal 484
+I       71      d = 10
+C       324     d = 5
+A       342     d = 10
+T       442     d = 1
+Tm      489     d = 1
+
+******
+
+Army.defend(location) tests:
+
+* weapons don't go through mountains
+    BattleTestBoard1
+    North           .defend(203) expect 12
+    Piece   loc.    expect
+    Arsenal 185
+    A       245     d = 0
+    I       203     d = 6
+    I       183     d = 6
+    South           .attack(203) expect 8
+    Piece   loc.    expect
+    Arsenal 64
+    I       202     a = 4
+    I       201     a = 4
+    A       243     a = 0
+    T       67      a = 0
+    I       221     a = 0
+
+* range check: artillery succeeds from <=3
+* range check: artillery fails from 4
+    BattleTestBoard2
+    North           .defend(174) expect 13
+    Piece   loc.    expect
+    Arsenal 185
+    C       174     d = 5
+    Am      177     d = 8
+    A       178     d = 0
+    South           .attack(174) expect 9
+    Piece   loc.    expect
+    Arsenal 64
+    Am      86      a = 5
+    I       130     a = 4
+    A       108     a = 0
+
+* range check: infantry succeeds from <=2
+* range check: infantry fails from 3 and 4 and 5
+    BattleTestBoard3 (method should have parameter for num of I)
+    North           .attack(264) expect 8
+    Piece   loc.    expect
+    Arsenal 185
+    I       265     a = 4
+    I       266     a = 4
+    (I       267     a = 0
+    I       268     a = 0
+    I       269     a = 0)
+    South           .defend(264) expect 18
+    Piece   loc.    expect
+    Arsenal 484
+    I       264     d = 6
+    I       284     d = 6
+    I       304     d = 6
+    (I       324     d = 0
+    I       344     d = 0
+    I       364     d = 0)
+    
+* check out-of-comms doesn't support defence
+    BattleTestBoard4
+    North           .attack(264) expect 8
+    Piece   loc.    expect
+    Arsenal 185
+    I       265     a = 4
+    C       266     a = 4
+    I       308     a = 0
+    South           .defend(264) expect 6
+    Piece   loc.    expect
+    Arsenal 484
+    I       264     d = 6
+    I       262     d = 0
+    
+
+
+
+Army.attack(location) tests:
+
+BattleTestBoard1 (above)
+    * weapons don't go through mountains
+
+BattleTestBoard2
+    * range check: artillery succeeds from <=3
+    * range check: artillery fails from 4
+
+BattleTestBoard3
+    * range check: infantry succeeds from <=2
+    * range check: infantry fails from 3 and 4 and 5
+    
+BattleTestBoard4
+    * check out-of-comms doesn't support attack
+    * cavalry not at all charging
+
+
+Army.attack(location) tests for cavalry charge:
+
+All tests with Arsenal_North(334), Arsenal_South(484)
+All coordinates for cavalry pieces only until last 2 tests
+* cavalry charges up to 4  (use BattleTestBoard5, int argument for number
+  of south cavalry)
+    North: 494;  South: 493, 492, 491, 490 (south attacks 494)
+    4 assert statements, expect 7, 14, 21, 28
+* cavalry 2 separate charges
+    North: 494;  South: 493, 492, 472 (south attacks 494, all charging)
+    expect 21
+* cavalry 4 separate charges
+    North: 472, 473, 494, 514;  South: 493 (north attacks 493, all charging)
+    expect 28
+* charge plus interrupted line (so last piece not supporting)
+    North: 494;  South: 493, 491 (south attacks 494, only one piece charges)
+    expect 7
+* cavalry charge plus non-charging cavalry support
+    North: 494;  South: 450, 472, 492  (south attacks 494, 2 charge,
+    1 non-charging support)
+    expect 18
+* can't charge against fortress
+    North: 454;  South: 474, 494  (south attacks 454, just 2 normal)
+    expect 8
+* can't charge from adjacent fortress
+    North: 454, 434;  South: 474, 494  (north attacks 474, 2 normal)
+    expect 8
+* can't join charge from fortress
+    North: 474, 454, 434;  South: 494  (north attacks 444, 1 charging 1 normal)
+    expect 11
+* can't charge against mountain pass
+    North: C225, I246;  South: C245, C265, I244  (South attacks 225, no charge)
+    expect 8
+* can charge from mountain pass
+    North: C225, I246;  South: C245, C265, I244  (North attacks 245, charges)
+    expect 11
+* attack with mixed attackers (all types, cavalry charging)
+    North: I494
+    South: C493, C492, C491, I472, C450, Am428 (South attacks 494)
+    expect: 7+7+7+4+4+5 = 34
+
+
+*****
+
+validateMove tests:
+all BoardStates use all 4 arsenals
+
+getMoveValidationTestBoardState1: taken from one of the .attack() tests;
+arbitrary piece locations
+* empty move passes 
+* invalid coordinates _anywhere_ fails (and that's all that fails an attack)
+
+getMoveValidationTestBoardState2:
+    North:  I164
+    South:  T169, I184(a, c, k, e, m), I526(i), I83(j) I138(f), C183(b-both
+    with I184, d-with I184, l), C182 C181 C180 (g), Am22(h, i, j, m, n, q)
+    always south's move with this piece list
+a) single piece, anywhere in the move list
+
+b) can't pass through location occupied by same side
+    - either originally occupied, or newly occupied by earlier part of move
+
+c) can move onto opposing arsenal
+
+d) can pass through just-vacated location
+
+e) range of 1 rejects the 3rd box
+
+f) piece not in comms can't move
+
+g) 3rd box used correctly on 1st, 3rd, 5th row
+
+// these should all be covered by using getCandidateLocations, opponent blocks
+h) can move onto own arsenal
+i) can't move off board ends -- scratch this; covered by bad coordinates
+j) can't move off bottom/top of board -- scratch this; covered by bad
+   coordinates
+k) can't pass through location occupied by other side
+l) can't pass through mountain
+
+m) destination must be adjacent to source
+n) 2nd destination must be adjacent to first destination
+o) attack anywhere on board is valid -- covered  negatively by bad coordinates
+   too
+p) invalid if start location doesn't have a piece of correct army on it
+q) can't move same piece in two different rows
+
+Use piece positions for battle test 5:
+    North: T290, I269;  South: Tm244, T247, I268 289
+* whole move fails if locationMustMove doesn't move first
+* rest of move fine if locationMustMove does move first
+
+*****
+
+
+Battles to test:
+(all 4 arsenals present in all cases)
+
+1) on piece out of comms (defence 0); destroyed
+    North: A38;  South: I35.  N.attack(35)
+    
+2) AttackSum <= DefenceSum; nothing happens
+    North: C75;  South: I74, T73.  N.attack(74)
+
+3) AttackSum >= DefenceSum + 2; defending piece on the attacked square is
+   destroyed
+    North: I474;  South: I473, I494.  S.attack(474)
+
+4) AttackSum = DefenceSum + 1, no escape; defending piece on the attacked
+   square is destroyed
+    North: T323, I362 363 364 365 384;  South: T321, Tm174, I342 320.
+    N.attack(342)
+
+5) AttackSum = DefenceSum + 1, escape available; forced move works
+    North: T290, I269;  South: Tm244, T247, I268 289.  S.attack(269)
+    
+6) attack location with no defender on (nothing happens)
+    North: A38;  South: I35.  N.attack(36) (use same object as 1)
+
+*****
+
+
+Moves to make:
+
+1) one piece moves onto Arsenal
+    North: both arsenals, I164
+    South: west arsenal, I184, C183 182 181 l180, T169
+    Move:
+        p8 q8
+    check:
+        - arsenal destroyed
+        - for each piece that moved:
+            - piece at new location
+            - piece not at old location
+        - BoardState message correct
+        - BoardState turn correct
+
+2) one piece moves onto last remaining arsenal
+    North: west arsenal, I164
+    South: west arsenal, I184, C183 182 181 l180, T169
+    Move:
+        p8 q8
+    check:
+        - arsenal destroyed
+        - for each piece that moved:
+            - piece at new location
+            - piece not at old location
+        - BoardState message correct -> win indicated
+        - BoardState turn correct
+
+3) 5 pieces move and attack a piece
+    North: both arsenals, I164 165
+    South: west arsenal, I184, C183 182 181 l180, T169
+    Move:
+        a8 a7
+        o8 p7 q6
+        n8 o7 p7
+        m8 n7 o7
+        l8 m7 n7
+        attack q7
+    check:
+        - q7 destroyed
+        - for each piece that moved:
+            - piece at new location
+            - piece not at old location
+        - BoardState message correct
+        - BoardState turn correct
+
+4) 5 pieces move and attack last remaining piece
+    North: both arsenals, I164
+    South: west arsenal, I184, C183 182 181 l180, T169
+    Move:
+        a8 a7
+        o8 p7 q6
+        n8 o7 p7
+        m8 n7 o7
+        l8 m7 n7
+        attack q7
+    check:
+        - q7 destroyed
+        - for each piece that moved:
+            - piece at new location
+            - piece not at old location
+        - BoardState message correct -> win indicated
+        - BoardState turn correct
+

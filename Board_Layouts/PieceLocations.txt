@@ -1,0 +1,97 @@
+Terrain:
+    fortress                [71, 187, 285, 324, 454, 489]
+    moutain_pass            [225, 342]
+    mountain                [222, 223, 224, 226, 227, 228, 238, 249, 259, 270, 280, 291, 301, 322, 339, 340, 341, 343]
+    arsenal_north           [185, 334]
+    arsenal_south           [64, 484]
+
+Fighter:
+    north
+    infantry 9              []
+    cavalry 4               []
+    artillery 1             []
+    artillery_mounted 1     []
+    transmission 1          []
+    transmission_mounted 1  []
+    south
+    infantry                []
+    cavalry                 []
+    artillery               []
+    artillery_mounted       []
+    transmission            []
+    transmission_mounted    []
+
+
+
+*Pump House*
+Fighter:
+    north
+    infantry                [158, 160, 179, 180, 200, 202, 225, 247, 266]
+    cavalry                 [116, 117, 118, 139]
+    artillery               [246]
+    artillery_mounted       [138]
+    transmission            [245]
+    transmission_mounted    [97]
+    south
+    infantry                [342, 364, 405, 406, 426, 427, 446, 447, 489]
+    cavalry                 [449, 469, 470, 491]
+    artillery               [385]
+    artillery_mounted       [448]
+    transmission            [384]
+    transmission_mounted    [490]
+    
+    
+*Rio de Janeiro*    
+Fighter:
+    north
+    infantry 9              [182, 204, 225, 285, 286, 306, 307, 433, 434]
+    cavalry 4               [161, 162, 475, 476]
+    artillery 1             [454]
+    artillery_mounted 1     [140]
+    transmission 1          [455]
+    transmission_mounted 1  [183]
+    south
+    infantry                [71, 92, 303, 324, 342, 344, 450, 470, 471]
+    cavalry                 [70, 91, 512, 513]
+    artillery               [113]
+    artillery_mounted       [492]
+    transmission            [384]
+    transmission_mounted    [69]
+
+
+
+*1800 Marengo*
+Fighter:
+    north
+    infantry 9              [96, 117, 138, 139, 225, 432, 453, 474, 475]
+    cavalry 4               [76, 97, 496, 517]
+    artillery 1             [118]
+    artillery_mounted 1     [454]
+    transmission 1          [141]
+    transmission_mounted 1  [414]
+    south
+    infantry                [71, 92, 174, 213, 233, 234, 324, 364, 489]
+    cavalry                 [190, 191, 212, 232]
+    artillery               [70]
+    artillery_mounted       [211]
+    transmission            [384]
+    transmission_mounted    [152]
+
+
+
+*1805 Austerlitz*
+Fighter:
+    north
+    infantry 9              [139, 161, 285, 306, 452, 453, 473, 474, 475]
+    cavalry 4               [141, 494, 495, 515]
+    artillery 1             [181]
+    artillery_mounted 1     [516]
+    transmission 1          [454]
+    transmission_mounted 1  [183]
+    south
+    infantry                [71, 92, 237, 257, 258, 281, 344, 489, 511]
+    cavalry                 [91, 235, 236, 256]
+    artillery               [324]
+    artillery_mounted       [194]
+    transmission            [69]
+    transmission_mounted    [174]
