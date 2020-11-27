@@ -1,0 +1,239 @@
+<resources>
+    <string name="app_name">GameOfWarApp</string>
+    <string name="show_instructions">Show Instructions</string>
+    <string name="show_rules">Rules</string>
+    <string name="start_new_game">Start New Game</string>
+    <string name="title_activity_instructions">Instructions</string>
+    <string name="action_settings">Settings</string>
+    <string name="instructions">Once you choose your position the board will display.  North is red, South is blue.\n
+    \n
+    I: infantry\n
+    C: Cavalry\n
+    A: Artillery\n
+    Am: Artillery-mounted\n
+    T: Transmission\n
+    Tm: Transmission-Mounted\n
+    Arsenals are the radiating circles.\n
+    Mountains are the dark squares.\n
+    Mountain passes are the squares between mountains with jagged edges.\n
+    Fortresses are the squares with dotted edges.\n
+    \n
+    You will always see whose turn it is under the board.  That\'s also where error messages go if you enter your move incorrectly.\n
+    \n
+    Scroll down to enter your move.  Always use letter-number.  Upper or lower case letters are fine.  Pieces that can move two squares must always specify both steps if they do so.  If you choose to attack, the format is the same.\n
+    Any unused parts of the move table should be left as \'a0\'.\n
+    \n
+    Once you are happy with your move, click on "MAKE MOVE / END TURN".\n\n\n\n\n\n\nInstructions end.
+    </string>
+
+    <string name="title_activity_rules">Rules</string>
+    <string name="new_game_choice">Pick a starting position.</string>
+    <string name="PumpHouse">Pump House</string>
+    <string name="RioDeJaneiro">Rio de Janeiro</string>
+    <string name="Marengo">1800 Marengo</string>
+    <string name="Austerlitz">1804 Austerlitz</string>
+    <string name="DemoForWins">Demo: wins</string>
+    <string name="DemoForRetreat">Demo: retreat</string>
+    <string name="DemoForNoRetreat">Demo: no retreat</string>
+    <string name="error_or_other_message">This should say something else</string>
+    <string name="rules">1. North and South armies start on the top 10 (K to T) and bottom 10 (A to J) rows respectively\n
+    \n
+    Non-moving features on each side:\n
+    \n
+    2. Mountains.  9 squares\n
+        \timpassable to troops\n
+        \timpassable to weapons\n
+        \timpassable to communications\n
+    3. Mountain-pass.  1 square\n
+    4. Arsenal.  2 squares\n
+    5. Fortress.  3 squares\n
+    \n
+    6. All squares can be occupied by any moving piece, except where there are mountains.\n
+    \n
+    7. At the start of the game each side places its troops freely on its own side of the board, without knowledge of the other side\'s placement.\n
+    \n
+    8. First move is by coin-toss.  After, turns alternate.\n
+    \n
+    9. A turn consists of moving up to 5 pieces, and ends with an optional attack.\n
+\n
+    10. Win conditions.  Any of:\n
+        a) all opposing troops destroyed\n
+        b) both opposing arsenals destroyed\n
+            an arsenal is destroyed once its square is occupied by an opposing fighting piece at the end of that opposing player\'s turn\n
+        c) opponent surrenders\n
+    \n
+    11. Draw condition: mutual agreement of the players.\n
+    \n
+    \n
+    Fighting pieces (per side at start):\n
+    \n
+    12. Infantry (9)\n
+        Movement: 1\n
+        Weapons Range: 2\n
+        Attack: 4\n
+        Defence: 6\n
+            in Mountain-pass: 8\n
+            in Fortress: 10\n
+    13. Cavalry (4)\n
+        Movement: 2\n
+        Weapons Range: 2\n
+            charging attack range: 4\n
+        Attack (not-charging): 4\n
+            charging (adjacent to attacked square, or directly in line with other charging cavalry and attacked square): 7\n
+            * cannot charge against a piece in a Mountain-pass or Fortress\n
+            * cannot charge from inside a Fortress\n
+        Defence: 5\n
+    14. Artillery (1)\n
+        Movement: 1\n
+        Weapons Range: 3\n
+        Attack: 5\n
+        Defence: 8\n
+            in Mountain-pass: 10\n
+            in Fortress: 12\n
+    15. Artillery-mounted (1)\n
+        Movement: 2\n
+        Weapons Range: 3\n
+        Attack: 5\n
+        Defence: 8\n
+            in Mountain-pass: 10\n
+            in Fortress: 12\n
+    \n
+    16. All co-efficients (Movement, Attack, Defence) are 0 for any fighting piece which is not in communication.\n
+    \n
+    17. Movement is to any of the 8 adjacent squares.  For pieces which can move more than one square per turn, changes of direction are allowed.  Movement can only be into/through unoccupied squares.\n
+    \n
+    18. Range is strictly in a straight line, horizontal, vertical, or diagonal.\n
+    \n
+    19. To determine the result of an attack:\n
+        1) add up the Attack co-efficients of all pieces from the attacking side which are directly in line with, and whose range encompasses the attacked square.\n
+        2) add up the Defence co-efficients of all pieces from the defending side which are directly in line with, and whose range encompasses the attacked square (including the piece on the attacked square).\n
+        3)\n
+        if AttackSum less than DefenceSum\n
+            nothing happens\n
+        if AttackSum greater than or equal to DefenceSum + 2\n
+            defending piece on the attacked square is destroyed, removed from play\n
+        if AttackSum equal to DefenceSum + 1\n
+            if there are no unoccupied squares adjacent to the defending piece\n
+                defending piece on the attacked square is destroyed, removed from play\n
+            else\n
+                defending army must use the _first_ of its 5 moves to move the attacked piece (retreat)\n
+                the attacked piece has an Attack value of 0 for the turn of its retreat\n
+    \n
+    \n
+    Communication:\n
+    \n
+    20. Arsenals transmit communication in straight lines horizontally, vertically, and diagonally\n
+    \n
+    21. Communication lines are broken by Mountain squares and by enemy pieces.\n
+    \n
+    Transmission pieces (per side at start):\n
+    22. Transmission-foot (1):\n
+        Movement: 1\n
+        Range: 2\n
+        Attack: 0\n
+        Defence: 1\n
+    23. Transmission-mounted (1):\n
+        Movement: 2\n
+        Range: 2\n
+        Attack: 0\n
+        Defence: 1\n
+    \n
+    24. If a transmission piece is in communication, it repeats communication in a straight line in all directions.\n
+    \n
+    25. If a fighting piece is in communication, it repeats communication to all 8 immediately adjacent squares.
+    </string>
+
+    <string name="rules_holding">
+        "Material is the metaphor.\n\n"
+
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+        "Bold, graphic, intentional.\n\n"
+
+        "The foundational elements of print based design typography, grids, space, scale, color, "
+        "and use of imagery guide visual treatments. These elements do far more than please the "
+        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+        "imagery, large scale typography, and intentional white space create a bold and graphic "
+        "interface that immerse the user in the experience.\n"
+        "An emphasis on user actions makes core functionality immediately apparent and provides "
+        "waypoints for the user.\n\n"
+
+        "Motion provides meaning.\n\n"
+
+        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+        "inflection points that initiate motion, transforming the whole design.\n"
+        "All action takes place in a single environment. Objects are presented to the user without "
+        "breaking the continuity of experience even as they transform and reorganize.\n"
+        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+        "3D world.\n\n"
+
+        "The material environment is a 3D space, which means all objects have x, y, and z "
+        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+        "position along the z-axis and has a standard 1dp thickness.\n"
+        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+        "emulated by manipulating the y-axis.\n\n"
+
+        "Light and shadow.\n\n"
+
+        "Within the material environment, virtual lights illuminate the scene. Key lights create "
+        "directional shadows, while ambient light creates soft shadows from all angles.\n"
+        "Shadows in the material environment are cast by these two light sources. In Android "
+        "development, shadows occur when light sources are blocked by sheets of material at "
+        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+        "Resting elevation.\n\n"
+
+        "All material objects, regardless of size, have a resting elevation, or default elevation "
+        "that does not change. If an object changes elevation, it should return to its resting "
+        "elevation as soon as possible.\n\n"
+
+        "Component elevations.\n\n"
+
+        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+        "does not vary from 6dp in one app to 16dp in another app).\n"
+        "Components may have different resting elevations across platforms, depending on the depth "
+        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+        "Responsive elevation and dynamic elevation offsets.\n\n"
+
+        "Some component types have responsive elevation, meaning they change elevation in response "
+        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "changes are consistently implemented using dynamic elevation offsets.\n"
+        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+        "to the component’s resting state. They ensure that elevation changes are consistent "
+        "across actions and component types. For example, all components that lift on press have "
+        "the same elevation change relative to their resting elevation.\n"
+        "Once the input event is completed or cancelled, the component will return to its resting "
+        "elevation.\n\n"
+
+        "Avoiding elevation interference.\n\n"
+
+        "Components with responsive elevations may encounter other components as they move between "
+        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+        "through other material, components avoid interfering with one another any number of ways, "
+        "whether on a per component basis or using the entire app layout.\n"
+        "On a component level, components can move or be removed before they cause interference. "
+        "For example, a floating action button (FAB) can disappear or move off screen before a "
+        "user picks up a card, or it can move if a snackbar appears.\n"
+        "On the layout level, design your app layout to minimize opportunities for interference. "
+        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+        "when a user tries to pick up one of cards.\n\n"
+    </string>
+    <string name="default_coordinate">a0</string>
+    <string name="make_move_end_turn">Make Move / End Turn</string>
+    <string name="attack_prompt">Location to attack (optional):</string>
+    <string name="short_Rules">Rules go here.\n\n\n\n\n\n\n\n\n\n\n\nTo here.</string>
+</resources>
